@@ -1,0 +1,11 @@
+- title ||= nil
+- id ||= title || ("incidence-" << (1000 * rand).to_i.to_s)
+
+- resolution ||= 250
+- title ||= "Incidence"
+
+- matrix = data
+
+- graph_R_lib = Rbbt.share.R["graph.R"].find(:lib)
+= resource(id + '.svg', title, :image) do |filename|
+  - matrix.R "source('#{graph_R_lib}'); rbbt.graph.incidence(data, '#{ filename }')"

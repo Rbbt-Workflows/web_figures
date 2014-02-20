@@ -1,0 +1,36 @@
+!!!
+/ paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+/[if lt IE 7 ] <html class=\"ie6\" lang=\"en\">
+/[if IE 7 ]    <html class=\"ie7\" lang=\"en\">
+/[if IE 8 ]    <html class=\"ie8\" lang=\"en\">
+/[if IE 9 ]    <html class=\"ie9\" lang=\"en\">
+/[if (gt IE 9)|!(IE)] <!--> <html lang=\"en\">
+
+%head
+  %link(href='/js-find/nvd3/nv.d3.css' type="text/css" rel="stylesheet")
+  = link_js 'http://d3js.org/d3.v3.js'
+  = link_js '/js-find/nvd3/nv.d3.js'
+  = link_js '/js-find/nvd3/src/models/legend.js'
+  = link_js '/js-find/nvd3/src/models/pie.js'
+  = link_js '/js-find/nvd3/src/models/pieChart.js'
+  = link_js '/js-find/nvd3/src/utils.js'
+
+:css
+  body {
+    overflow-y:scroll;
+    }
+
+    text {
+      font: 12px sans-serif;
+      }
+
+      .mypiechart {
+        width: 500px;
+          border: 2px;
+          }
+  
+%body(class="with-3d-shadow with-transitions")
+
+  = yield
+
+  = link_js '/js-find/nvd3/nv.d3.js'

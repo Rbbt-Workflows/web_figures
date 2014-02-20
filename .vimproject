@@ -1,0 +1,35 @@
+D3Js=/$PWD filter="*.rb *.R *.js *.sass *.haml *.tsv" {
+ workflow.rb
+ lib=lib {
+  sinatra.rb
+ }
+ share=share{
+  R=R{
+   graph.R
+  }
+ }
+ www=www {
+  views=views {
+   compass=compass{
+    d3js.sass
+   }
+   tools=tools{
+    figure.haml
+   }
+   nvd3=nvd3{
+    chart.haml
+    histogram.haml
+    pie.haml
+    scatter.haml
+   }
+   ggplot2=ggplot2{
+    incidence.haml
+   }
+   entity_list=entity_list{
+    Gene=Gene{
+    }
+   }
+  }
+ }
+ }
+}

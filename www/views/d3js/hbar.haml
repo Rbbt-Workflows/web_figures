@@ -1,0 +1,55 @@
+- id = "chart-" << (10000 * rand).to_i.to_s if id.nil?
+
+- width = "300px" 
+- padding = 2
+- margin = 1
+- bg_color = "lightblue"
+- color='black'
+
+:sass
+  =hbar_item($color:#{color},$bg-color:#{bg_color})
+    font: 10px sans-serif
+    overflow: display
+    background-color: $bg_color
+    text-align: right
+    padding: #{padding}px
+    margin: #{margin}px
+    color: $color
+
+  .chart.hbar 
+    width: #{ width }
+    div
+      +hbar_item
+  
+%div.3djs.chart.hbar(id=id)
+
+:javascript
+  deffer(function(){
+    var id = '#{id}'
+    var chart = d3.select("#" + id);
+    var jq_chart = $("#" + id)
+
+    // Load data 
+    var data = #{data.to_json};
+
+    // pre-process
+
+    var width = #{width ? width.to_i : 'jq_chart.width()'};
+    var padding = #{padding}
+    var margin = #{margin}
+
+    var scale = d3.scale.linear()
+      .domain([0, d3.max(data)])
+      .range([0, width-3*margin-1]);
+
+    // PLOT
+    chart
+    .selectAll("div")
+      .data(data)
+    .enter().append("div")
+      .style("width", function(d) { return scale(d)  + "px"; })
+      .text(function(d) { return d; });
+
+  })
+
+
