@@ -28,6 +28,7 @@ rbbt.graph.incidence.layer <- function(incidence.matrix, sample.info = NULL){
 
     cutoff = round(dim(incidence.matrix)[1] * 0.05)
     cutoff = max(c(cutoff,2))
+    cutoff = min(c(cutoff,50))
 
     recurrent.genes = names(gene.mutation.counts[gene.mutation.counts >= cutoff])
 
