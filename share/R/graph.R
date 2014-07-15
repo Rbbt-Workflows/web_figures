@@ -30,9 +30,9 @@ rbbt.graph.incidence.layer <- function(incidence.matrix, sample.info = NULL){
     cutoff = max(c(cutoff,2))
     cutoff = min(c(cutoff,50))
 
-    recurrent.genes = names(gene.mutation.counts[gene.mutation.counts >= cutoff])
+    recurrent.genes = c(c(), names(gene.mutation.counts[gene.mutation.counts >= cutoff]))
 
-    d.recurrent = incidence.matrix[, recurrent.genes]
+    d.recurrent = incidence.matrix[, recurrent.genes, drop=FALSE]
     d.recurrent$Sample = rownames(d.recurrent)
 
     d.recurrent.m = melt(d.recurrent, "Sample")
@@ -57,7 +57,7 @@ rbbt.graph.incidence <- function(incidence.matrix, filename){
 
     plot  = ggplot() + layer
     #plot  = plot + theme(axis.text.x=element_text(angle=90), panel.background = element_rect(fill='white', colour='steelblue'))
-    plot  = plot + theme(axis.text.x=theme_blank(), panel.background = element_rect(fill='white', colour='steelblue'))
+    plot  = plot + theme(axis.text.x=element_blank(), panel.background = element_rect(fill='white', colour='steelblue'))
 
     ggsave(plot, filename=filename); #, height=5, width=5);
 }
