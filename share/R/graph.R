@@ -32,31 +32,34 @@ rbbt.graph.incidence.layer <- function(incidence.matrix, sample.info = NULL){
 
     recurrent.genes = c(c(), names(gene.mutation.counts[gene.mutation.counts >= cutoff]))
 
-    d.recurrent = incidence.matrix[, recurrent.genes, drop=FALSE]
-    d.recurrent$Sample = rownames(d.recurrent)
+    if (length(recurrent.genes) > 0) {
+        d.recurrent = incidence.matrix[, recurrent.genes, drop=FALSE]
+        d.recurrent$Sample = rownames(d.recurrent)
 
-    d.recurrent.m = melt(d.recurrent, "Sample")
+        d.recurrent.m = melt(d.recurrent, "Sample")
 
-    names(d.recurrent.m) <- c("Sample", "Gene", "Mutated")
+        names(d.recurrent.m) <- c("Sample", "Gene", "Mutated")
 
-    if (is.null(sample.info)){
-        d = d.recurrent.m
+        if (is.null(sample.info)){
+            d = d.recurrent.m
+        }else{
+            d = merge(d.recurrent.m, sample.info, all.x=TRUE)
+        }
+
+        layer.mutations = geom_tile(data=d,aes(x=Sample, y=Gene, alpha=Mutated))
+
+        rbbt.graph.incidence.layer.sort_by_mutations(layer.mutations);
+
+        return(layer.mutations);
     }else{
-        d = merge(d.recurrent.m, sample.info, all.x=TRUE)
+        quit()
     }
-
-    layer.mutations = geom_tile(data=d,aes(x=Sample, y=Gene, alpha=Mutated))
-
-    rbbt.graph.incidence.layer.sort_by_mutations(layer.mutations);
-
-    return(layer.mutations);
 }
 
 rbbt.graph.incidence <- function(incidence.matrix, filename){
     layer = rbbt.graph.incidence.layer(incidence.matrix);
 
     plot  = ggplot() + layer
-    #plot  = plot + theme(axis.text.x=element_text(angle=90), panel.background = element_rect(fill='white', colour='steelblue'))
     plot  = plot + theme(axis.text.x=element_blank(), panel.background = element_rect(fill='white', colour='steelblue'))
 
     ggsave(plot, filename=filename); #, height=5, width=5);
