@@ -5,6 +5,16 @@
 - url = @step.instance_variable_get(:@url)
 %svg(id=id)
 
+:ruby
+  setup =<<-EOF
+    var graph = nv.models.discreteBarChart()
+        .x(function(d) { return d.label })
+        .y(function(d) { return d.value })
+        .staggerLabels(true)
+        .tooltips(false)
+        .showValues(true)
+  EOF
+
 :javascript
   
 
