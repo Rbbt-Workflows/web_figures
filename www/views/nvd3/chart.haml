@@ -6,7 +6,7 @@
 %svg(id=id)
 
 :ruby
-  setup =<<-EOF
+  setup ||=<<-EOF
     var graph = nv.models.discreteBarChart()
         .x(function(d) { return d.label })
         .y(function(d) { return d.value })
