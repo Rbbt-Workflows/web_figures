@@ -17,7 +17,6 @@
         .x(function(d) { return d.key })
         .y(function(d) { return d.y })
         .color(d3.scale.category10().range())
-        
   EOF
 
 = partial_render('nvd3/chart', locals.merge(:plot_data => plot_data, :id => id, :resolution => resolution, :setup => setup))

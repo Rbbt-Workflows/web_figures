@@ -20,34 +20,32 @@
 
   defer(function(){
 
-    require_js(['/js-find/nvd3/lib/d3.v3.js', '/js-find/nvd3/nv.d3.min.js'], function(){
-      var id = '#{id}';
-      var selector = "svg#" + id
-      var uri = add_parameter('#{url}', '_file', '#{data_id}')
+    var id = '#{id}';
+    var selector = "svg#" + id
+    var uri = add_parameter('#{url}', '_file', '#{data_id}')
 
-      var resolution = #{resolution}
-      var svg = $(selector)
-      var figure = svg.parent('.figure')
-      var W = figure.innerWidth() 
-      var H = figure.innerHeight()
+    var resolution = #{resolution}
+    var svg = $(selector)
+    var figure = svg.parent('.figure')
+    var W = figure.innerWidth() 
+    var H = figure.innerHeight()
 
-      nv.addGraph({
-        generate: function(){
-          #{setup}
+    nv.addGraph({
+      generate: function(){
+        #{setup}
 
-          $.get(uri, function(data){
-            var json = JSON.parse(data)
+        $.get(uri, function(data){
+          var json = JSON.parse(data)
 
-            d3.select(selector)
-              .datum(json)
-              .call(graph);
-          })
+          d3.select(selector)
+            .datum(json)
+            .call(graph);
+        })
 
-          nv.utils.windowResize(graph.update);
+        nv.utils.windowResize(graph.update);
 
-          return graph;
-        },
-      })
+        return graph;
+      },
     })
   })
 
