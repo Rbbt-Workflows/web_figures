@@ -1,3 +1,0 @@
-[submodule "www/views/public/js/nvd3"]
-	path = www/views/public/js/nvd3
-	url = https://github.com/novus/nvd3.git
