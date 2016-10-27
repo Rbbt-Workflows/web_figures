@@ -1,10 +1,10 @@
 require 'rbbt/workflow'
 url = "https://github.com/novus/nvd3/tarball/master"
 
-module D3Js
+module WebFigures
   extend Workflow
 
-  def self.format_values(data)
+  def self.values2d3(data)
     data = data.to_single if data.respond_to? :to_single and not data.type == :single
 
     values = []
