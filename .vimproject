@@ -1,4 +1,4 @@
-D3Js=/$PWD filter="*.rb *.R *.js *.sass *.haml *.tsv" {
+WebFigures=/$PWD filter="*.rb *.R *.js *.sass *.haml *.tsv" {
  workflow.rb
  lib=lib {
   sinatra.rb

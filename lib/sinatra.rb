@@ -1,7 +1,7 @@
 require 'rbbt'
 require 'rbbt/resource'
 
-Rbbt.claim Rbbt.www.views.public.js.nvd3.find(:lib), :proc do |dir|
+#Rbbt.claim Rbbt.www.views.public.js.nvd3.find(:lib), :proc do |dir|
   url = "https://github.com/novus/nvd3/tarball/master"
 
   TmpFile.with_file(nil, true, :extension => 'tar.gz') do |tar|
