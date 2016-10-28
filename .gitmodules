@@ -1,0 +1,3 @@
+[submodule "www/views/public/plugins/muts-needle-plot"]
+	path = www/views/public/plugins/muts-needle-plot
+	url = https://github.com/bbglab/muts-needle-plot.git

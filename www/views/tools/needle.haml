@@ -1,0 +1,59 @@
+= link_css '/css-find/muts-needle-plot/build/muts-needle-plot.min.css'
+
+- default_config = {"maxCoord" =>  350, "width" =>  1000, "height" =>  500, "responsive" =>  'resize'} 
+- if defined? config and config
+  - config = default_config.merge(config)
+- else
+  - config = default_config
+
+- default_colorMap = { "missense_variant" =>  "yellow", "frameshift_variant" =>  "blue", "stop_gained" =>  "red", "stop_lost" =>  "orange", "synonymous_variant" =>  "lightblue" };
+- if not defined? colorMap or colorMap.nil?
+  - colorMap = default_colorMap
+
+- plot_title = title
+
+.needle-plot(id=id)
+
+:deferjs
+  //require_js(['/js-find/muts-needle-plot/build/muts-needle-plot.js','/js-find/muts-needle-plot/src/js/d3-svg-legend.js'], function(){
+  require_js(['https://cdn.rawgit.com/bbglab/muts-needle-plot/master/src/js/dependencies/underscore.js','/js-find/muts-needle-plot/build/muts-needle-plot.js','/js-find/muts-needle-plot/src/js/d3-svg-legend.js'], function(){
+    var plot_div = document.getElementById('#{id}');
+    plot_div.innerHTML = '';
+
+    // import our plot-library
+    var mutneedles = require("muts-needle-plot");
+
+    var target = plot_div;
+
+    var muts = #{mutations.sort_by{|i| i[:value].to_i}.to_json};
+    var regions = #{regions.to_json}
+    var colorMap = #{colorMap.to_json}
+    var legends = {x: "#{plot_title}", y: "Mutation Count"}
+
+    var config = #{config.to_json};
+
+    var save_proto = {}
+    for (key in Array.prototype){
+      console.log(key)
+      save_proto[key] = Array.prototype[key]
+      console.log(Array.prototype[key])
+      delete Array.prototype[key]
+      console.log(Array.prototype[key])
+    }
+
+    forHash({mutationData: muts, regionData: regions, target: target, legends: legends, colorMap: colorMap}, function(k,v){
+      config[k] = v
+    })
+
+    instance =  new mutneedles(config);
+
+    for (key in save_proto){
+      console.log(key)
+      Array.prototype[key] = save_proto[key]
+      console.log(Array.prototype[key])
+    }
+    var svg = $('body > svg')
+    svg.appendTo(plot_div)
+  })
+
+
