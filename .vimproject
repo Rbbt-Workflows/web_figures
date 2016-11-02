@@ -14,6 +14,7 @@ WebFigures=/$PWD filter="*.rb *.R *.js *.sass *.haml *.tsv" {
     d3js.sass
    }
    tools=tools{
+    needle.haml
    }
    ggplot2=ggplot2{
     incidence.haml
